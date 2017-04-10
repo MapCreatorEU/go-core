@@ -22,7 +22,7 @@ type RabbitMQ struct {
 	Queue amqp.Queue
 }
 
-func (MessageQueue *RabbitMQ) Connect(Config RabbitMQConfig) {
+func (MessageQueue *RabbitMQ) ConnectWithQueuee(Config RabbitMQConfig, Queue string) {
 	var err error
 
 	MessageQueue.Connection, err = amqp.Dial(fmt.Sprintf("amqp://%s:%s@%s:%d%s",
@@ -38,7 +38,7 @@ func (MessageQueue *RabbitMQ) Connect(Config RabbitMQConfig) {
 	logger.FailOnError(err, "Failed to open channel")
 
 	MessageQueue.Queue, err =  MessageQueue.Channel.QueueDeclare(
-		Config.Queue,
+		Queue,
 		true,
 		false,
 		false,
@@ -46,6 +46,10 @@ func (MessageQueue *RabbitMQ) Connect(Config RabbitMQConfig) {
 		nil,
 	)
 	logger.FailOnError(err, "Failed to declare queue")
+}
+
+func (MessageQueue *RabbitMQ) Connect(Config RabbitMQConfig) {
+	MessageQueue.ConnectWithQueuee(Config, Config.Queue)
 }
 
 func (MessageQueue *RabbitMQ) Disconnect() {
