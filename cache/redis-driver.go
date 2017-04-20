@@ -9,12 +9,18 @@ type RedisDriver struct {
 	client *redis.Client
 }
 
-func NewRedisDriver(Address string, Password string, DB int)(*RedisDriver) {
+type RedisConfig struct {
+	Addr string
+	Password string
+	DB int
+}
+
+func NewRedisDriver(Config RedisConfig)(*RedisDriver) {
 	return &RedisDriver{
 		client: redis.NewClient(&redis.Options{
-			Addr: Address,
-			Password: Password,
-			DB: DB,
+			Addr: Config.Addr,
+			Password: Config.Password,
+			DB: Config.DB,
 		}),
 	}
 }
