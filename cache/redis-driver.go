@@ -57,3 +57,7 @@ func (Driver *RedisDriver) SRem(Key string, Value string) (error) {
 func (Driver *RedisDriver) SHasKey(Key string, Value string) (bool, error) {
 	return Driver.client.SIsMember(Key, Value).Result()
 }
+
+func (Driver *RedisDriver) Close() {
+	Driver.client.Close()
+}
