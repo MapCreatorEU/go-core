@@ -49,7 +49,7 @@ func (MessageQueue *RabbitMQ) ConnectWithQueue(Config RabbitMQConfig, Queue stri
 }
 
 func (MessageQueue *RabbitMQ) Connect(Config RabbitMQConfig) {
-	MessageQueue.ConnectWithQueuee(Config, Config.Queue)
+	MessageQueue.ConnectWithQueue(Config, Config.Queue)
 }
 
 func (MessageQueue *RabbitMQ) Disconnect() {
