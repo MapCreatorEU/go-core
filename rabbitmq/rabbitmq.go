@@ -22,7 +22,7 @@ type RabbitMQ struct {
 	Queue amqp.Queue
 }
 
-func (MessageQueue *RabbitMQ) ConnectWithQueuee(Config RabbitMQConfig, Queue string) {
+func (MessageQueue *RabbitMQ) ConnectWithQueue(Config RabbitMQConfig, Queue string) {
 	var err error
 
 	MessageQueue.Connection, err = amqp.Dial(fmt.Sprintf("amqp://%s:%s@%s:%d%s",
