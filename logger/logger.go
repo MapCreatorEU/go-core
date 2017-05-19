@@ -20,11 +20,10 @@ func LogOnError(err error, msg string) {
 }
 
 func CreateLog(file *os.File, FilePath string, Debug bool) {
-	if !Debug {
+	if !Debug && FilePath != "" {
 		var err error
 		file, err = os.OpenFile(FilePath, os.O_RDWR | os.O_CREATE | os.O_APPEND, 0666)
 		FailOnError(err, "Cannot open log")
-
 		Log = log.New(file, "", log.LstdFlags | log.Lshortfile)
 	} else {
 		Log = log.New(os.Stdout, "", log.LstdFlags | log.Ltime | log.Ldate)
